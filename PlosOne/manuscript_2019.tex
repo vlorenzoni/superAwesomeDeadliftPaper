@@ -1,12 +1,5 @@
 % Template for PLoS
-% Version 3.1 February 2015
-%
-% To compile to pdf, run:
-% latex plos.template
-% bibtex plos.template
-% latex plos.template
-% latex plos.template
-% dvipdf plos.template
+% Version 3.5 March 2018
 %
 % % % % % % % % % % % % % % % % % % % % % %
 %
@@ -20,15 +13,18 @@
 % % % % % % % % % % % % % % % % % % % % % % % 
 %
 % Once your paper is accepted for publication, 
-% PLEASE REMOVE ALL TRACKED CHANGES in this file and leave only
-% the final text of your manuscript.
+% PLEASE REMOVE ALL TRACKED CHANGES in this file 
+% and leave only the final text of your manuscript. 
+% PLOS recommends the use of latexdiff to track changes during review, as this will help to maintain a clean tex file.
+% Visit https://www.ctan.org/pkg/latexdiff?lang=en for info or contact us at latex@plos.org.
+%
 %
 % There are no restrictions on package use within the LaTeX files except that 
 % no packages listed in the template may be deleted.
 %
 % Please do not include colors or graphics in the text.
 %
-% Please do not create a heading level below \subsection. For 3rd level headings, use \paragraph{}.
+% The manuscript LaTeX source should be contained within a single file (do not use \input, \externaldocument, or similar commands).
 %
 % % % % % % % % % % % % % % % % % % % % % % %
 %
@@ -40,14 +36,14 @@
 % - Figures should be uploaded separately from your manuscript file. 
 % - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
 % - Figures containing multiple panels/subfigures must be combined into one image file before submission.
-% For figure citations, please use "Fig." instead of "Figure".
-% See http://www.plosone.org/static/figureGuidelines for PLOS figure guidelines.
+% For figure citations, please use "Fig" instead of "Figure".
+% See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
 %
 % Tables should be cell-based and may not contain:
-% - tabs/spacing/line breaks within cells to alter layout or alignment
-% - vertically-merged cells (no tabular environments within tabular environments, do not use \multirow)
-% - colors, shading, or graphic objects
-% See http://www.plosone.org/static/figureGuidelines#tables for table guidelines.
+% - spacing/line breaks within cells to alter layout or alignment
+% - do not nest tabular environments (no tabular environments within tabular environments)
+% - no graphics or colored text (cell background color/shading OK)
+% See http://journals.plos.org/plosone/s/tables for table guidelines.
 %
 % For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
 %
@@ -56,15 +52,19 @@
 % -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
 %
 % IMPORTANT
-% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://www.plosone.org/static/latexGuidelines
+% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://journals.plos.org/plosone/s/latex
 %
-% Please be sure to include all portions of an equation in the math environment.
+% For inline equations, please be sure to include all portions of an equation in the math environment.  For example, x$^2$ is incorrect; this should be formatted as $x^2$ (or $\mathrm{x}^2$ if the romanized font is desired).
 %
-% Do not include text that is not math in the math environment. For example, CO2 will be CO\textsubscript{2}.
+% Do not include text that is not math in the math environment. For example, CO2 should be written as CO\textsubscript{2} instead of CO$_2$.
 %
 % Please add line breaks to long display equations when possible in order to fit size of the column. 
 %
 % For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
+%
+% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2". 
+%
+% Do not use \cal for caligraphic font.  Instead, use \mathcal{}
 %
 % % % % % % % % % % % % % % % % % % % % % % % % 
 %
@@ -74,26 +74,18 @@
 
 \documentclass[10pt,letterpaper]{article}
 \usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
-\usepackage{changes}
 
-
-% Added for vertically merged cells in table header
-\usepackage{multirow}
+% amsmath and amssymb packages, useful for mathematical formulas and symbols
+\usepackage{amsmath,amssymb}
 
 % Use adjustwidth environment to exceed column width (see example table in text)
 \usepackage{changepage}
 
 % Use Unicode characters when possible
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 
 % textcomp package and marvosym package for additional characters
 \usepackage{textcomp,marvosym}
-
-% fixltx2e package for \textsubscript
-\usepackage{fixltx2e}
-
-% amsmath and amssymb packages, useful for mathematical formulas and symbols
-\usepackage{amsmath,amssymb}
 
 % cite package, to clean up citations in the main text. Do not remove.
 \usepackage{cite}
@@ -108,8 +100,29 @@
 \usepackage{microtype}
 \DisableLigatures[f]{encoding = *, family = * }
 
-% rotating package for sideways tables
-\usepackage{rotating}
+% color can be used to apply background shading to table cells only
+\usepackage[table]{xcolor}
+
+% array package and thick rules for tables
+\usepackage{array}
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+% create \thickcline for thick horizontal lines of variable length
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% \thickhline command for thick horizontal lines that span the table
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
 
 % Remove comment for double spacing
 %\usepackage{setspace} 
@@ -124,6 +137,7 @@
 % Bold the 'Figure #' in the caption and separate it from the title/caption with a period
 % Captions will be left justified
 \usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
 
 % Use the PLoS provided BiBTeX style
 \bibliographystyle{plos2015}
@@ -133,21 +147,22 @@
 \renewcommand{\@biblabel}[1]{\quad#1.}
 \makeatother
 
-% Leave date blank
-\date{}
+
 
 % Header and Footer with logo
 \usepackage{lastpage,fancyhdr,graphicx}
 \usepackage{epstopdf}
-\pagestyle{myheadings}
+%\pagestyle{myheadings}
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+%\setlength{\headheight}{27.023pt}
+%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
 \rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
 \fancyheadoffset[L]{2.25in}
 \fancyfootoffset[L]{2.25in}
-\lfoot{\sf PLOS}
+\lfoot{\today}
 
 %% Include all macros below
 
@@ -155,6 +170,16 @@
 \newcommand{\ipsum}{{\bf IPSUM}}
 
 %% END MACROS SECTION
+
+
+
+
+
+
+
+
+
+
 
 
 \begin{document}
@@ -195,6 +220,9 @@ Marc Leman\textsuperscript{1}
 % Please keep the abstract below 300 words
 
 \section*{Abstract}
+% Learning or only improving?!?
+
+Functional coumpounds movements as in weighlifting and powerlifting disciplines are becoming increasingly popular. The 
 
 Crossfit and gymnastic exercising are becoming increasingly popular. Functional movement are the the base of such exercises and 
 
@@ -203,131 +231,214 @@ usually these kind of movement require specific technique for movement improveme
 
 \section*{Introduction}
 
-Biofeedbacks have been used for over fifty years in the domains of sports \cite{onate2001augmented} and motor rehabilitation \cite{tate2016real} . These techniques are used to provide the subjects with information about physiological or biomechanical parameters that that would otherwise be unknown.
-\cite{giggins2013biofeedback}. 
+%Biofeedback is a technique that typically uses electronic equipment to provide a client with auditory signals, visual signals, or both regarding internal physiological events, both normal and abnormal (eg, heart rate, blood pressure, and level of muscle activity).17 During biofeedback for gait retraining, the client is provided with augmented information (eg, kinematics, kinetics, and electromyography) regarding physiological responses. Additionally, biofeedback provides clinicians with a useful tool for giving clients instructions on how to modify movement patterns. Thus, biofeedback complements the already present internal feedback (ie, visual, auditory, and proprioceptive feedback) and acts as a ?sixth sense.?18 Biofeedback typically is provided instantaneously to the learner (ie, in real time), whereas other methods of external feedback (eg, verbal and video feedback) are provided some time after the movement. More recently, a resurgence of interest in real-time feedback has developed because of the expansion of technology related to kinematic19 and kinetic14,16 biofeedback.
 
-%Many physiological processes that directly influence our physical and cognitive performance are not under our conscious control. Biofeedbacks offer a possibility to monitor and correct 
 
-The main goal of such systems is to let the subject automatically improve the performances at subconscious level, without explicit instructions by a trainer or therapist.
+Biofeedbacks have been used for over fifty years in the domains of sports \cite{onate2001augmented} and motor rehabilitation \cite{tate2016real,isakov2007gait}. These are used to provide the subjects with information about physiological or biomechanical parameters that that would otherwise be unknown \cite{giggins2013biofeedback}. The main goal of such systems is to let the subject automatically improve the performances at subconscious level, without explicit instructions by a trainer or therapist.
+
 Traditionally biofeedback are presented to the subject via visual displays , acoustic or vibrotactile feedback. Recent technological developments have opened the possibility to provide such bio-feedback in real-time during physical activity, this opened the possibility for using
+
 A recent development in rehabilitation is exercising in a gaming or virtual reality (VR) environment, thus providing a novel form of immersive biofeedback.
+
 
 In this paper we describe the design and validation process of a bio-mechanical biofeedback system for improving weightlifting movements.
 
+Weightlifting is an ancient sport which appeared in the Olympic Games in Athens already in 1896. Weightlifting movements are becoming increasingly popular in the sport world, as new sports as Crossfit (founded in year 2000 by) combine elements of Olympic weight lifting with power lifting and other disciplines.
+Although researchers have proven the benefits of such functional weightlifting movements \cite{smith2013crossfit}, clear knowledge of the exact technique is required in order to maximize movement efficency and minimize the chance of injuries.
 
-Weightlifting is an ancient sport which appeared in the Olympic Games in Athens already in 1896. Weightlifting movements are becoming increasingly popular in the sport world, as new sports as Crossfit (founded in year 2000 by) combine elements of Olympic weight lifting together with other disciplines.
-Although researchers have proven the benefits of such functional weightlifting movements \cite{smith2013crossfit}, deep knowledge of the exact technique is required in order to maximize movement efficency and minimize the chance of injuries.
+In this work we focused on a specific movement called \emph{deadlift} which is one of the three discipline of power lifting movements but it is widely used in weightlifting training and rehabilitation practices.
 
-In this work we focused on a specific movement called \emph{deadlift} which one of the three discipline of power lifting movements but it is widely used in weightlifting training and rehabilitation practices.
+According to the handbook of the powerlifting federation \cite{} a deadlift consists of grabbing a barbell from the floor with hands, then raising the weight by extending the knee, hips, and back while holding the arms downward. On completion of the lift, the knees must be locked in a straight position and the shoulders pulled back.
+McCuigan \emph{et al.} investigated the kinematics of deadlift comparing different techniques: the sumo and conventional style deadlifts.
+Due to the fact that the deadlift is a closed chain exercise, it is often used in the prevention of and rehabilitation after anterior cruciate ligament (ACL) reconstruction to improve strength of the muscular structures that surround the knee and hence dynamic stability of the joint 
 
-According to the handbook of the powerlifting federation \cite{} a deadlift consists of grabbing a barbell from the floor with hands, then raising the weight by extending the knee, hips, and back while holding the arms downward. On completion of the lift, the knees must be locked in a straight position adn the shoulders pulled back.
-
-McCuigan \emph{et al.} investigated the kinematics of deadlift comparing different techniques: the Sumo and conventional style.
-
-Due to the fact that the DL is a closed chain exercise [5], it is often used in the prevention of and rehabilitation after anterior cruciate ligament (ACL) reconstruction to improve strength of the muscular structures that surround the knee and hence dynamic stability of the joint 
-
-However, a wrong technique during deadlift lift-off may predispose the spine and back musculature to an increased risk of injury \cite{granhed1987loads,cholewicki1991lumbar}. The exercise is often made unsafe by the lifter rounding his back and bending over too far at the hips just before lifting. Holding the bar away from your body instead of right against it is another way to injure your back. At the top of the movement, avoid hyperextending your lower back. Some people lean back a little at the top, but doing so only asks for trouble.
-
-
-With the presented system we aim at providing a real-time feedback using auditory displays, i.e. sonification. The quantities to be sonified and on which the participant gets feedback are the spine curvature and the barbell horizontal displacement as these quantities are directly related to back loads and injuries.
-
+However, a wrong technique during deadlift lift-off may predispose the spine and back musculature to an increased risk of injury \cite{granhed1987loads,cholewicki1991lumbar}. The exercise is often made unsafe by the lifter rounding his back and bending over too far at the hips just before lifting. Holding the bar away from your body instead of right against it is another way to injure your back. 
+With the presented system we aim at providing a real-time feedback using auditory displays, i.e. sonification. The quantities being sonified and on which the participant gets feedback are the spine curvature and the barbell horizontal displacement, as these quantities are directly related to back loads and injuries.
 Usually coaches spend time in the first phase to teach the right technique and provide feedbacks to the performers.
-
 Having continuous feedback by a coach is not feasible while training in public gyms or at home. Therefore there is need to develop portable systems able to guide towards the right movement technique.
 
-
-The use of sonification in weightlifting has been shown to increase average exertion of power in the experimental condition, compared to the control condition. \cite{murgia2012using}. The work of
-
+The use of sonification in weightlifting has been shown to increase average exertion of power compared to silent condition \cite{murgia2012using}. The work of Fritz \emph{et al.}  \cite{fritz2013musical} showed that music agency stimulated by sonification is able to decrease perceived exertion during workout, indicating that musical agency may actually facilitate physically strenuous activities. These results further indicated that the positive effect of music on perceived exertion cannot always be explained by an effect of diversion from proprioceptive feedback. The most typical strategy pertains to a goal-driven approach. This approach requires that the learner has an explicit representation of the target behavior, i.e., the goal. Sonification then functions as mere information carrier, allowing people to monitor their behavior, compare it to the target behavior, and adapt their behavior if required [2?4]. 
 
 
 
+Recently, a promising alternative strategy is being explored, drawing upon basic principles from the reinforcement learning paradigm. Reinforcement learning is rooted in the idea that people act and behave so as to maximize outcome reward. Hence, when coupling a reward to a desired behavior, people are likely to exhibit this behavior spontaneously, without needing to be told explicitly what to do. In this context, music and sound are particularly relevant as they might be rich sources of reward and pleasure (for an in-depth discussion, see [1])
 
+
+In the present experiment we developed a sonification strategy which exploits the positive effects of music of music. 
+Several authors reported the positive effects of music in sports and physical activities. In particular, music was shown to distract from fatigue and discomfort (Bood, Nijssen, Van Der Kamp, \& Roerdink, 2013;Yamashita, Iwai, Akimoto, Sugawara, \& Kono, 2006), enhance work output (Edworthy \& Waring, 2006; Rendi, Szabo, \& Szab, 2008), increase arousal (Szabo, Balogh, Gaspar, Vaczi, \& Bosze, 2009; Karageorghis \& Priest, 2012; Karageorghis \& Terry, 2011), and boost mood states (Edworthy \& Waring, 2006; Shaulov \& Lufi, 2009).
+
+As formulated in the theory of embodied music interaction \cite{Marc_EmbodiedMusic,godoy2010musical}, listening to music generates motor coordination-inducing schemes that respond to external sensory sources in such a way that it allows auditory-motor alignment and even prediction of musical events. 
+
+We developed a system that uses music quality as reward, i.e. the correctness of the movement is rewarded by an improving of the audio quality of the feedback. More specifically in this specific case the unwanted movements: spine forward bending and barbell forward displacement with respect to initial position are mapped ,respectively into: a down-sampling of the music played and a forward panning and reduction of the active loudspeakers.
+Our hypothesis is that such system could be comparable to the verbal instructions by and instructor in terms of performances and that would be more motivating than standard verbal instruction because of the reward mechanism.
 
 
 Apart from learning the technique the system could be used for advanced sporters to further improve their technique by discovering minor aspects of their movement that are not fully visible by eye.
 
+Participants were randomly split into 2 groups: one group received only verbal feedback and the other group only sonic feedback during 10 deadlift repetitions. We compared them with a control taken as reference for the participant movement.
 
-
-We measured the power exerted during the lifting. The results show that athletes can take advantage of the stimulus we provided, evidencing a higher average exertion of power in the experimental condition, compared to the control condition. Concluding, the results suggest that auditory perception can be a productive field of research in developing experimental strategies to improve athletes? skills.
-
-
-
-
-Our hypothesis is that such system could be comparable to the verbal instructions by and instructor in terms of performances and that would be more motivating than standard verbal instruction because of the reward mechanism.
+Results show that athletes can take advantage of the stimulus we provided, evidencing a higher average exertion of power in the experimental condition, compared to the control condition. Concluding, the results suggest that auditory perception can be a productive field of research in developing experimental strategies to improve athletes? skills.
 
 
 
-% FROM PIETER-JAN JMUI
-In the domain of sports and motor rehabilitation, sonification of physical and physiological data is typically used to serve three functions, namely to motivate, to monitor, and/or to modify human performance. Auditory feedback has been proven particularly useful in assisting motor learning and adaptation. The way sonification, or auditory biofeedback, is deployed for this purpose may rely on different strategies. The most typical strategy pertains to a goal-driven approach. This approach requires that the learner has an explicit representation of the target behavior, i.e., the goal. Sonification then functions as mere information carrier, allowing people to monitor their behavior, compare it to the target behavior, and adapt their behavior if required [2?4]. 
-
-As indicated by Ram and Leake [5], this process is guided by reasoning and attention mechanisms and may therefore not always be the most appropriate strategy. Recently, a promising alternative strategy is being explored, drawing upon basic principles from the reinforcement learning paradigm. Reinforcement learning is rooted in the idea that people act and behave so as to maximize outcome reward. Hence, when coupling a reward to a desired behavior, people are likely to exhibit this behavior spontaneously, without needing to be told explicitly what to do. In this context, music and sound are particularly relevant as they might be rich sources of reward and pleasure (for an in-depth discussion, see [1])
-
-Music is of particular interest for sonification because many humans are highly skilled in synchronizing temporal and spatial aspects of their move- ments to parameters in the sound and music. The periodic character of the music (implied in the expressive timing of pulses and beats) fits well with the ability of the human motor system to act in concert with attention sharpened by period- icity in signals [29], as music is often designed to dance and move upon [40]. On top of that, a major asset of using music as feedback source concerns its ability to motivate and provide pleasure [32]. This feature may be related to its rhythmicity [40], which is valuable in contexts that often involve strenuous physical activity, boredom, and fatigue [11].
-
+%% FROM PIETER-JAN JMUI
+%In the domain of sports and motor rehabilitation, sonification of physical and physiological data is typically used to serve three functions, namely to motivate, to monitor, and/or to modify human performance. Auditory feedback has been proven particularly useful in assisting motor learning and adaptation. The way sonification, or auditory biofeedback, is deployed for this purpose may rely on different strategies. The most typical strategy pertains to a goal-driven approach. This approach requires that the learner has an explicit representation of the target behavior, i.e., the goal. Sonification then functions as mere information carrier, allowing people to monitor their behavior, compare it to the target behavior, and adapt their behavior if required [2?4]. 
+%
+%As indicated by Ram and Leake [5], this process is guided by reasoning and attention mechanisms and may therefore not always be the most appropriate strategy. 
+%Music is of particular interest for sonification because many humans are highly skilled in synchronizing temporal and spatial aspects of their move- ments to parameters in the sound and music. The periodic character of the music (implied in the expressive timing of pulses and beats) fits well with the ability of the human motor system to act in concert with attention sharpened by periodicity in signals [29], as music is often designed to dance and move upon [40]. 
+%On top of that, a major asset of using music as feedback source concerns its ability to motivate and provide pleasure [32]. This feature may be related to its rhythmicity [40], which is valuable in contexts that often involve strenuous physical activity, boredom, and fatigue [11].
 
 
 
 \section*{Materials and Methods} \label{sec:materials_methods}
-\subsection*{Ethics statement}
-The study was approved by the Ethics Committee of the Faculty of Arts and Philosophy of Ghent University, and all procedures followed were in accordance with the statements of the Declaration of Helsinki. All participants voluntarily participated; They were informed about the physical effort required for the experiment and that questionnaires could have contained personal questions.
+
+
 
 \subsection*{Participants}
-Participants consisted of 28 non-professional weightlifters with an average age of 24 $\pm$ 5 years. 
+Twenty-eight participants (11 women) took part in the experiment. The age range was 20 to 42 years (mean = 27.8). An exclusion criterion was having had injuries within the last six months previous to the tests that precluded sport activities. 
+All the participants were trained in sports. In particular, 11 participants mentioned to have more than 2 years of experience with deadlift movements, 12 between 6 months and 2 years and only 3 declared to have less than 6 months of experience with it.   
+The majority of participants (16) declared to mostly use music while training, 6 to train without music and 6 equally  with and without music.
+Only 46 \% of participants declared to have received music education in their life.
+The study was approved by the Ethics Committee of the Faculty of Arts and Philosophy of Ghent University, and all procedures followed were in accordance with the statements of the Declaration of Helsinki. All participants voluntarily participated; They were informed about the physical effort required for the experiment and that questionnaires could have contained personal questions.
 
-The distribution between sexes was relatively even with 46\% women and 54\% men. 61\% of the participants had music education. Most of them (82\%) were educated in an academy, 12\% was self-educated and 6\% took private lessons. A majority of 86\% went jogging at least once a month. The exact numbers are: 21\% once a month, 25\% once a week and 52\% several times a week. 
+
+
 
 \subsection*{Apparatus}\label{sec:apparatus}
-Experiments took place a the 
-Participants were equipped with a full body MOCAP markers set-up
+The experiment took place at the IPEM-IDLab Art\&Science Lab in De Krook library in Ghent. The lab has dimensions: 10 m x 10 m x 7 m height and is instrumented with an immersive sound system of 64 speakers distributed all around the room at two different heights and ceiling. Eight Qualisys\textsuperscript{\textregistered} infrared cameras were used for the motion capture (Mocap) recordings. 
+A male barbell with 20 kilo's weights was placed at the center of the room on two protection hard foam pads.
+The cameras were used to detect passive reflective spherical markers of 2.5 mm radius.
+Participants were equipped with a full body markers set-up. The set-up consisted of a total number of 24 markers. Trousers with a fixed configuration of 6 markers were provided to the participants (2 different size were made available). Two straps with a single marker were placed on the wrists; a headset with 4 fixed markers and adjustable width was used for the head. A total of 10 markers were attached directly on the skin of the participant, using a biocompatible double sided tape by 3M\textsuperscript{\textregistered}. Specifically 4 markers were attached on the spine at the height of the vertebras: L4, T12, T7 and C2. The larger spacing between the last two markers was chosen to account for the presence of sport bra's for female participants. Markers were also attached on the elbows and shoulders and on the front part of the feet. 
+Four markers were placed on the barbell: two at the extremities and two on the clap next to the weight on one side only. Asymmetry was chosen to improve barbell model recognition. 
+See images in Fig. \ref{fig:set-up} for visualization of the full positioning of the markers
 \begin{figure}[!h]
 \center
-\includegraphics[width=.8\textwidth]{figures/promo1_deadlift.jpg}
-\caption{Sketch experimental set-up}
+\includegraphics[width=.8\textwidth]{figures/combination_markers.jpg}
+\caption{Mocap markers positioning}
 \label{fig:set-up}      
 \end{figure}
 
-\subsection*{Experimental procedure}
-Participants were asked to perform 10 repetitions in 
-
+A schematic representation of quantities that were used as experimental parameter are shown in Fig. \ref{fig:sketch_quantities}.
+\begin{description}
+\item[Spine bend] The sum of the consecutive distances between spine markers ($$spine dist = d0+d1+d2$$) 
+\item[B-F distance] The planar distance between the line connecting the extremities of the barbell and the markers on the front part of the foot. The smaller of the two distances was considered.
+\end{description}
 
 \begin{figure}[!h]
 \center
-\includegraphics[width=.8\textwidth]{figures/Experiment-flow.png}
-\caption{Experiment workflow}
-\label{fig:workflow}      
+\includegraphics[width=.8\textwidth]{figures/Sketch_spine_final.jpg}
+\caption{Mocap markers positioning}
+\label{fig:sketch_quantities}      
 \end{figure}
 
 
-The 3 points of performance consisted of :
-\begin{enumerate} %for small alpha-characters within brackets.
-\item  \emph{Spine}: a reference condition without music, 
-\item  \emph{Barbell}: an adaptive BPM and phase synchronization based on the DJogger technology \cite{moens2014encouraging}
+Mocap recordings were performed on a dedicated Windows computer. The system evaluated the 3D markers positions at a frequency of 100 Hz. These position were transmitted in real-time as OSC message to Max from Cycling UDP receiver implemented in Max4Live, as audio effect within Ableton Live\textsuperscript{\textregistered} . The Max4Live patch was responsible for starting and stopping the music, providing the sonification based on the physical parameters and storing the data.
+
+A picture of the interface is provided in Fig \ref{fig:interface}
+\begin{figure}[!h]
+\center
+\includegraphics[width=.6\textwidth]{figures/interface.png}
+\caption{Interface of console computer running Ableton Live with house developed MAX4Live controller effect}
+\label{fig:interface}      
+\end{figure}
+
+
+\subsection*{Experimental procedure}
+Once in the lab, participants received a description of the experiment. They were asked to sign an informed consent form and fill in a questionnaire with general information: gender, age, level of experience with weightlifting, music education, injuries. After that, a video was shown of an expert performing 10 deadlifts, in front and side view.
+Participants were then equipped with the markers set-up. The Qualisys software made used of a pre-trained skeleton model to recognize the body parts across different subjects. The correct markers labelling was checked at this stage. 
+One of the authors is certified Level 2 crossfit trainer and functioned as instructor during the experiments. A warm-up routine was provided by the instructor to all participants prior to the tests.
+
+Before starting performing deadlift, reference parameters for each subject were recorded, specifically:
+\begin{description}
+\item[Neutral spine] Participants were asked to grab the bar and keep spine in unloaded position.
+\item[Max spine bend] Participants were asked to grab the bar and slightly bend forward. The instructor was helping them finding this position letting them bend the spine  up to incorrect but stil not dangerous position
+\item[Initial barbell-foot distance] Participants were asked to grab the barbell on the ground as they would start the movement and they were instructed that the barbell needed to be approximately in the middle of the foot
+\end{description}
+
+The actual tests started with a serie of 10 deadlifts at own tempo, middle-low pace. This was taken as control condition for the analysis. Afterwards participants were randomly split in two groups, as homogeneous as possible in terms of gender, experience level and age (see sketch in Fig. \ref{fig:workflow}).
+\begin{figure}[!h]
+\center
+\includegraphics[width=.5\textwidth]{figures/Experiment-flow.png}
+\caption{Scheme of the experiment design protocol}
+\label{fig:exp-flow}      
+\end{figure}
+
+One group of participants received verbal feedback by the instructor the other group received sonification as feedback. The groups are hereafter called \emph{instructions group} and \emph{sonification group}.
+
+Participants of both groups were asked to perform 10 deadlifts for each of the following Points of Performance, in randomized order:
+\emph{Spine},\emph{Barbell} and \emph{Combination}
+
+The test leaders informed the participant to only focus on the specific point of performance and that continuous feedback (either as verbal instructions or as sonification) would have been given if the movement was deviating from correctness.
+
+The provided feedbacks corresponded to, respectively for the \emph{instruction group} and the \emph{sonification group} and for the specific point of performance:
+
+\paragraph{Instructions feedback} 
+\begin{description}
+\item  \emph{Spine}: You
+\item  \emph{Barbell}: sonification 
 \item  \emph{Combination}: a tempo synchronization condition based on the initial SPM of the runner
-\end{enumerate}
+\end{description}
+
+
+\paragraph{Sonification feedback}
+\paragraph{Instructions feedback} 
+\begin{description}
+\item  \emph{Spine}: sonification based on the spine curvature only, 
+\item  \emph{Barbell}: sonification 
+\item  \emph{Combination}: a tempo synchronization condition based on the initial SPM of the runner
+\end{description}
 
 
 
-After each run, a break of 5 minutes was introduced to enable the participant to recover sufficiently. During the break they were asked to fill out a Rating of Perceived Exertion (RPE) questionnaire \cite{borg1998borg} and indicate how heavy the effort had been during the exercise, ranging from 6 ("no exertion at all") to 20 ("maximal exertion"). In addition, they rated the level of physical enjoyment of the previous run on the 8-item version of the Physical Activity Enjoyment Scale (PACES) \cite{kendzierski1991physical}, a single factor scale to assess the level of enjoyment during a physical activity in adults across exercise modalities.
-In order to test the motivational properties of the stimulus, participants also performed a modified version of the Brunel Music Rating Inventory 2 (BMRI-2) test \cite{karageorghis2006redesign}. In this test, they were asked to rate pleasantness and motivational aspects of the music synchronization strategy. They also filled out a questionnaire on music education and sports training. 
 
-%It was also checked whether participants believed they had entrained their running movements with the music in the instructed condition and whether they believe they tend to do so in daily live (in case they run to music).
+%Do you practice any sports?
+%If yes, how often per week?
+%Do you have experience with weight lifting functional movements (deadlift, airsquat, snatch)? 
+%If yes, for how long?
+%Do you work-out with or without music?
+%As what kind of learner do you perceive yourself?
+%Have you ever had musical training?
+%If yes, how long (in years)?
+%If yes, at what age did you start?
+%Do you currently play an instrument?
+%Do you have normal (or corrected to normal) vision?
+%Do you have normal (or corrected to normal) hearing?
+%Do you suffer from tinnitus?
+%Did you suffer any injuries within the last 6 months?
+%If yes, what were they?
+%
+%
+%
+
+After each serie of repetitions, a break of 5 minutes was introduced to enable the participant to recover sufficiently. During the break they were asked to fill out a Rating of Perceived Exertion (RPE) questionnaire \cite{borg1998borg} and indicate how heavy the effort had been during the exercise, ranging from 6 ("no exertion at all") to 20 ("maximal exertion"). 
+In addition, they rated the level of physical enjoyment of the previous run on the 8-item version of the Physical Activity Enjoyment Scale (PACES) \cite{kendzierski1991physical}, a single factor scale to assess the level of enjoyment during a physical activity in adults across exercise modalities.
+In order to test the motivational properties of the feedback, participants also performed a modified version of the Brunel Music Rating Inventory 2 (BMRI-2) test \cite{karageorghis2006redesign}. In this test, they were asked to rate on a 7-point Likert scale: clarity, pleasantness, accuracy, motivational properties and usability of the presented audio feedback. % Furthermore they were asked if they would use such a system to guide them to optimal movement technique
+All questionnaires were implemented as Google forms on a dedicated computer within the same room.
+
  
 
 \subsection*{Stimuli}
 
-
-In all conditions the same music piece was played. The piece was specifically composed for this experiment by Myrthe van de Weetering.\footnote{www.myrthevandeweetering.com}
-The music was composed respecting the following requirements:
+In all conditions the same music piece was played. The piece was specifically composed for this experiment by the authors. The music was composed respecting the following requirements:
 \begin{itemize}
 \item to be unknown, to avoid personal affection
 \item to be instrumental (no lyrics), to avoid focus on content
-\item to have a clear beat, in order to highlight the difference between synchronized and non-synchronized conditions.
+\item to have a clear beat, in order to stimulate repetitive movements.
 \end{itemize}
 
+For the sonification feedback 
+the spine spine curvature
+ithe music was distorted using the degrade object implemented in MAX/MSP, proportionally to the detected movement error.
 
 \subsection*{Data acquisition}
-For each condition the 3D accelerations measured by the accelerometers, were converted into resultant non-dimensional g-force. Cadence (SPM) was also calculated by the JAVA software (through a moving average over 5 steps) and locally stored on the tablet, together with the speed measurements from the sonar. 
-The g-force and SPM were continuously transmitted as OSC to an in-house MAX/MSP program running on the same tablet, which implemented the synchronization strategies and provided the audio. Data were collected every detected step and stored as .txt file on the tablet.f
+
+The markers positions in the 
+
+The markers positions were continuously transmitted as OSC to an in-house MAX/MSP program running on the same tablet, which implemented the synchronization strategies and provided the audio. Data were collected every 10 milliseconds and stored as .txt. file on the control computer
+
+
+
+
 
 \subsection*{Data analysis}
 
@@ -345,7 +456,7 @@ speak of power as the probability of not making a beta, or a "Type II" error, wh
 \subsection*{Differences in performance between feedbacks}
 
 
-\paragraph{Spine bending differences}
+\paragraph{Spine bend differences}
 
 \begin{figure}[!h]
 \center
@@ -362,10 +473,54 @@ speak of power as the probability of not making a beta, or a "Type II" error, wh
 \end{figure}
 
 
-\paragraph{Barbell verticality}
+\paragraph{Barbell horizontal displacement}
+
+%% OLD TABLE
 
 
 
+
+
+
+%\begin{table}[!ht]
+%%\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+%\centering
+%\caption{
+%{\bf Table caption Nulla mi mi, venenatis sed ipsum varius, volutpat euismod diam.}}
+%\begin{tabular}{|clclc|clc|c|}
+%\hline
+%\multicolumn{1}{|c}{\bf Feedback type} & \multicolumn{6}{|c|}{\bf Point of Performance}\\ \hline
+%\multicolumn{1}{|c|}{\bf} & \multicolumn{2}{|c|}{\bf Spine bend}& \multicolumn{2}{|c|}{\bf Barbell distance} & \multicolumn{2}{|c|}{\bf Combination}\\ \hline
+%
+%$Instructions $  & cell2  & cell3& row 1 & cell5 & cell6& cell6 \\ \hline
+%$Sonification $  & cell2 & cell3  & row 2 & cell5  & cell6 & cell6 \\ \hline
+%
+%\end{tabular}
+%
+%\label{table1}
+%%\end{adjustwidth}
+%\end{table}
+%
+
+% Table generated by Excel2LaTeX from sheet 'tablePaper'
+\begin{table}[!h]
+  \centering
+  \caption{Comaprison of }
+    \begin{tabular}{|l|r|r|r|r|r|r|}
+    \hline
+          & \multicolumn{6}{c|}{\bf Point of Performance} \\
+   \hline
+          & \multicolumn{2}{c|}{\bf Spine bend} & \multicolumn{2}{c|}{ \bf Barbell distance} & \multicolumn{2}{c|}{\bf Combination} \\
+     \hline
+   \bf Feedback type & \multicolumn{1}{l|}{mean} & \multicolumn{1}{l|}{sd} & \multicolumn{1}{l|}{mean} & \multicolumn{1}{l|}{sd} & \multicolumn{1}{l|}{mean} & \multicolumn{1}{l|}{sd} \\
+    \hline
+    Instructions &       &       &       &       &       &  \\
+    \hline
+    Sonification &       &       &       &       &       &  \\
+     \hline
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
 
 
 
@@ -389,27 +544,6 @@ When comparing independent groups by means of Mann Whitney tests, differences in
 The results are presented in Table \ref{tab:table1}.
 %Ratings for each condition were compared among independent groups: participants with music education and participants without by means of Mann Whitney tests.
 
-\begin{table}[h!]
-  \begin{center}
-    \caption{Results of Mann-Whitney tests on pleasantness ratings}
-    \label{tab:table1}
-    \begin{tabular}{|c|c|c|c|c|}
-    \hline
-      \textbf{Condition} & \textbf{Music} & \textbf{No music} & \textbf{z} & \textbf{p}\\
-          & \textbf{education (Mdn)} & \textbf{education (Mdn)} & & \\
-         \hline
-      Adaptive Synch & 5 & 4 & -2.598 & \textbf{0.013} \\     
-      Initial Synch & 5 & 5 & -1.620 & $>0.05$\\     
-      Minus 30\% & 5 & 4 & -1.615 & $>0.05$\\     
-      Plus 30\% & 5 & 4 & -2.244 & \textbf{0.029} \\   
-      \hline
-    \end{tabular}
-  \end{center}
-\end{table}
-
-
-
-
 
 
 No significant differences were found across gender and across training level of participants. 
@@ -426,14 +560,19 @@ Portability of the system could be improved by adoption of current systems for b
 
 Our hypothesis was is that such system could be comparable to the verbal instructions by and instructor in terms of performnces 
 
+Fritz \emph{et al.}  \cite{fritz2013musical}  distortion linked to agency positive feedback?
+
+
 However no significant differences were found between the two feedbackss across participants in terms of pleasantness and motivational qualities: reasons could be
 
 choice of music (elaborate)
 people used to having a coach
 people prefer human feedback
 
+From Tate (2010) NO RETAINING TESTS in his study nor in present experiment
+ Each biofeedback method appeared to result in moderate to large treatment effects immediately after treatment. However, it is unknown whether the effects were maintained. Future studies should ensure adequate randomization of participants and implementation of motor learning concepts and should include retention testing to assess the long-term success of biofeedback and outcome measures capable of demonstrating coordinative changes in gait and improvement in function.
 
-
+Extend conversation to WELL-BEING also for PhD thesis
 
 
 
@@ -453,7 +592,7 @@ The authors would like to thank the students of the course Sysmus2017 for the he
 %\section*{References}
 % Either type in your references using
 % \begin{thebibliography}{}
-% \bibitem{}
+% \bibitem
 % Text
 % \end{thebibliography}
 %
@@ -466,6 +605,8 @@ The authors would like to thank the students of the course Sysmus2017 for the he
 
 \bibliographystyle{plos2015}
 \bibliography{/Users/valerioipem/Dropbox/MyIPEM/Publications/IPEMBibliography}
+
+
 
 
 \end{document}

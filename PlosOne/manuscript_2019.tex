@@ -243,7 +243,7 @@ A recent development in rehabilitation is exercising in a gaming or virtual real
 
 In this paper we describe the design and validation process of a bio-mechanical biofeedback system for improving weightlifting movements.
 
-Weightlifting is an ancient sport which appeared in the Olympic Games in Athens already in 1896. Weightlifting movements are becoming increasingly popular in the sport world, as new sports as Crossfit (founded in year 2000 by) combine elements of Olympic weight lifting with power lifting and other disciplines.
+Weightlifting is an ancient sport which appeared in the Olympic Games in Athens already in 1896. Weightlifting movements are becoming increasingly popular in the sport world, as new sports as Crossfit (founded in year 2000 by Greg Glassman) combine elements of Olympic weight lifting with power lifting and other disciplines.
 Although researchers have proven the benefits of such functional weightlifting movements \cite{smith2013crossfit}, clear knowledge of the exact technique is required in order to maximize movement efficency and minimize the chance of injuries.
 
 In this work we focused on a specific movement called \emph{deadlift} which is one of the three discipline of power lifting movements but it is widely used in weightlifting training and rehabilitation practices.
@@ -298,17 +298,15 @@ Results show that athletes can take advantage of the stimulus we provided, evide
 Twenty-eight participants (11 women) took part in the experiment. The age range was 20 to 42 years (mean = 27.8). An exclusion criterion was having had injuries within the last six months previous to the tests that precluded sport activities. 
 All the participants were trained in sports. In particular, 11 participants mentioned to have more than 2 years of experience with deadlift movements, 12 between 6 months and 2 years and only 3 declared to have less than 6 months of experience with it.   
 The majority of participants (16) declared to mostly use music while training, 6 to train without music and 6 equally  with and without music.
-Only 46 \% of participants declared to have received music education in their life.
-The study was approved by the Ethics Committee of the Faculty of Arts and Philosophy of Ghent University, and all procedures followed were in accordance with the statements of the Declaration of Helsinki. All participants voluntarily participated; They were informed about the physical effort required for the experiment and that questionnaires could have contained personal questions.
+Thirteen participants (46 \%) declared to have received music education in their life.
 
-
+The study was approved by the Ethics Committee of the Faculty of Arts and Philosophy of Ghent University, and all procedures followed were in accordance with the statements of the Declaration of Helsinki. All participants voluntarily participated; They were informed about the physical effort required for the experiment and that questionnaires could have contained personal questions. Participants received a voucher for a soft drink at the cafeteria of the library as small compensation.
 
 
 \subsection*{Apparatus}\label{sec:apparatus}
-The experiment took place at the IPEM-IDLab Art\&Science Lab in De Krook library in Ghent. The lab has dimensions: 10 m x 10 m x 7 m height and is instrumented with an immersive sound system of 64 speakers distributed all around the room at two different heights and ceiling. Eight Qualisys\textsuperscript{\textregistered} infrared cameras were used for the motion capture (Mocap) recordings. 
-A male barbell with 20 kilo's weights was placed at the center of the room on two protection hard foam pads.
-The cameras were used to detect passive reflective spherical markers of 2.5 mm radius.
-Participants were equipped with a full body markers set-up. The set-up consisted of a total number of 24 markers. Trousers with a fixed configuration of 6 markers were provided to the participants (2 different size were made available). Two straps with a single marker were placed on the wrists; a headset with 4 fixed markers and adjustable width was used for the head. A total of 10 markers were attached directly on the skin of the participant, using a biocompatible double sided tape by 3M\textsuperscript{\textregistered}. Specifically 4 markers were attached on the spine at the height of the vertebras: L4, T12, T7 and C2. The larger spacing between the last two markers was chosen to account for the presence of sport bra's for female participants. Markers were also attached on the elbows and shoulders and on the front part of the feet. 
+The experiment took place at the IPEM-IDLab Art\&Science Lab in De Krook library in Ghent. The lab has dimensions: 10 m x 10 m x 7 m height and is instrumented with an immersive sound system of 64 speakers, distributed all around the room at two different heights and ceiling. Eight Qualisys\textsuperscript{\textregistered} infrared cameras were used for the motion capture (Mocap) recordings. 
+A male barbell with 20 kilo's weights was placed at the center of the room on two protective hard foam pads.
+The cameras detected passive reflective spherical markers of 2.5 mm radius. Participants were equipped with a full body markers set-up, consisting of a total number of 22 markers. Trousers with a fixed configuration of 6 markers were provided to the participants (two different sizes were made available). Two straps with a single marker were placed on the wrists; a headset with 4 fixed markers and adjustable width was used for the head. A total of 10 markers were attached directly on the skin of the participant, using a biocompatible double sided tape by 3M\textsuperscript{\textregistered}. Specifically 4 markers were attached on the spine at the height of the vertebras: L4, T12, T7 and C2. The larger spacing between the last two markers was chosen to account for the presence of sport tops used by female participants. Markers were also attached on the elbows and shoulders and on the front part of the feet. 
 Four markers were placed on the barbell: two at the extremities and two on the clap next to the weight on one side only. Asymmetry was chosen to improve barbell model recognition. 
 See images in Fig. \ref{fig:set-up} for visualization of the full positioning of the markers
 \begin{figure}[!h]
@@ -318,22 +316,7 @@ See images in Fig. \ref{fig:set-up} for visualization of the full positioning of
 \label{fig:set-up}      
 \end{figure}
 
-A schematic representation of quantities that were used as experimental parameter are shown in Fig. \ref{fig:sketch_quantities}.
-\begin{description}
-\item[Spine bend] The sum of the consecutive distances between spine markers ($$spine dist = d0+d1+d2$$) 
-\item[B-F distance] The planar distance between the line connecting the extremities of the barbell and the markers on the front part of the foot. The smaller of the two distances was considered.
-\end{description}
-
-\begin{figure}[!h]
-\center
-\includegraphics[width=.8\textwidth]{figures/Sketch_spine_final.jpg}
-\caption{Mocap markers positioning}
-\label{fig:sketch_quantities}      
-\end{figure}
-
-
-Mocap recordings were performed on a dedicated Windows computer. The system evaluated the 3D markers positions at a frequency of 100 Hz. These position were transmitted in real-time as OSC message to Max from Cycling UDP receiver implemented in Max4Live, as audio effect within Ableton Live\textsuperscript{\textregistered} . The Max4Live patch was responsible for starting and stopping the music, providing the sonification based on the physical parameters and storing the data.
-
+Mocap recordings were performed on a dedicated Windows computer. The system evaluated the 3D markers positions at a frequency of 100 Hz. These position were transmitted in real-time as OSC message to a custom-build Max4Live implemented as audio effect within Ableton Live\textsuperscript{\textregistered} . The Max4Live patch was responsible for starting and stopping the music, providing the sonification based on the physical parameters and storing the data.
 A picture of the interface is provided in Fig \ref{fig:interface}
 \begin{figure}[!h]
 \center
@@ -342,20 +325,46 @@ A picture of the interface is provided in Fig \ref{fig:interface}
 \label{fig:interface}      
 \end{figure}
 
+The Max4Live patch calculated the following quantities, used for the analysis and for sonification: 
+\begin{description}
+\item[Spine bend] The sum of the consecutive euclidean distances between spine markers: $ spine bend = d0 + d1 + d2 $
+\item[Barbell- foot (B-F) distance] The planar distance between the line connecting the extremities of the barbell and the markers on the front part of the foot. The smaller of the two distances was considered.
+\end{description}
+These are shown in the sketch of Fig. \ref{fig:sketch_quantities}.
+\begin{figure}[!h]
+\center
+\includegraphics[width=.8\textwidth]{figures/Sketch_spine_final.jpg}
+\caption{Mocap markers positioning}
+\label{fig:sketch_quantities}      
+\end{figure}
+
+
 
 \subsection*{Experimental procedure}
-Once in the lab, participants received a description of the experiment. They were asked to sign an informed consent form and fill in a questionnaire with general information: gender, age, level of experience with weightlifting, music education, injuries. After that, a video was shown of an expert performing 10 deadlifts, in front and side view.
+Once in the lab, participants received a written description of the experiment. They were asked to sign an informed consent form and fill in a questionnaire with general information about: gender, age, level of experience with weightlifting, music education, injuries. After that, a video was shown of an expert performing 10 deadlifts, in front and side view. It was explained that the focus of the experiment was on the neutrality of the spine during the movements and verticality of the barbell path.
+
 Participants were then equipped with the markers set-up. The Qualisys software made used of a pre-trained skeleton model to recognize the body parts across different subjects. The correct markers labelling was checked at this stage. 
+
 One of the authors is certified Level 2 crossfit trainer and functioned as instructor during the experiments. A warm-up routine was provided by the instructor to all participants prior to the tests.
+
 
 Before starting performing deadlift, reference parameters for each subject were recorded, specifically:
 \begin{description}
-\item[Neutral spine] Participants were asked to grab the bar and keep spine in unloaded position.
-\item[Max spine bend] Participants were asked to grab the bar and slightly bend forward. The instructor was helping them finding this position letting them bend the spine  up to incorrect but stil not dangerous position
-\item[Initial barbell-foot distance] Participants were asked to grab the barbell on the ground as they would start the movement and they were instructed that the barbell needed to be approximately in the middle of the foot
+\item[Neutral spine] Participants were asked to grab the bar and keep spine in unloaded neutral position.
+\item[Max spine bend] Participants were asked to grab the bar and slightly bend forward. The instructor was helping them finding this position letting them bend the spine up to incorrect but stil not dangerous position
+\item[Initial B-F distance] Participants were asked to grab the barbell on the ground as they would start the movement and they were instructed that the barbell needed to be approximately in the middle of the foot. The initial distance between the barbell and the feet was then recorded.
 \end{description}
 
-The actual tests started with a serie of 10 deadlifts at own tempo, middle-low pace. This was taken as control condition for the analysis. Afterwards participants were randomly split in two groups, as homogeneous as possible in terms of gender, experience level and age (see sketch in Fig. \ref{fig:workflow}).
+Based on these values the Max4Live patch calculated in real-time the following non-dimensional quantities:
+
+$$  sb=\frac{spine bend - neutral spine}{max spine bend - neutral spine }$$
+and the non-dimensional barbell-foot distance:
+ $$  bfd = \frac{BF distance}{initial BF distance}$$
+
+
+Participants were informed that for correctness of the movement they were requested to keep the spine in the measured neutral position throughout the movement and that the barbell should remain at the same distance from the feet as  measured by Initial B-F distance to ensure verticality of the barbell path.
+
+The actual tests started with a serie of 10 deadlifts at own tempo, middle-low pace. This was taken as control condition for the analysis. Afterwards participants were randomly split into two groups, as homogeneous as possible in terms of gender, experience level and age (see sketch in Fig. \ref{fig:exp-flow}).
 \begin{figure}[!h]
 \center
 \includegraphics[width=.5\textwidth]{figures/Experiment-flow.png}
@@ -363,7 +372,12 @@ The actual tests started with a serie of 10 deadlifts at own tempo, middle-low p
 \label{fig:exp-flow}      
 \end{figure}
 
+
+
+
 One group of participants received verbal feedback by the instructor the other group received sonification as feedback. The groups are hereafter called \emph{instructions group} and \emph{sonification group}.
+
+
 
 Participants of both groups were asked to perform 10 deadlifts for each of the following Points of Performance, in randomized order:
 \emph{Spine},\emph{Barbell} and \emph{Combination}
@@ -371,19 +385,21 @@ Participants of both groups were asked to perform 10 deadlifts for each of the f
 The test leaders informed the participant to only focus on the specific point of performance and that continuous feedback (either as verbal instructions or as sonification) would have been given if the movement was deviating from correctness.
 
 The provided feedbacks corresponded to, respectively for the \emph{instruction group} and the \emph{sonification group} and for the specific point of performance:
-
 \paragraph{Instructions feedback} 
+In this case the instructor informed the participants as follows
+
+
+I DO REALLY THINK THIS IS FOR YOU JACOB!
 \begin{description}
-\item  \emph{Spine}: You
-\item  \emph{Barbell}: sonification 
-\item  \emph{Combination}: a tempo synchronization condition based on the initial SPM of the runner
+\item  \emph{Spine}: You will receive feedback on your spine position. If the curvature of the spine.    remember the two cues you will receive are: 
+\item  \emph{Barbell}: Feedback will now be on.   sonification  remember the two cues you will receive are: 
+\item  \emph{Combination}: This is a combination of the two and you will receive feedback on both parameters the cues are the same as before 
 \end{description}
 
 
 \paragraph{Sonification feedback}
-\paragraph{Instructions feedback} 
 \begin{description}
-\item  \emph{Spine}: sonification based on the spine curvature only, 
+\item  \emph{Spine}: You  
 \item  \emph{Barbell}: sonification 
 \item  \emph{Combination}: a tempo synchronization condition based on the initial SPM of the runner
 \end{description}
@@ -413,41 +429,76 @@ The provided feedbacks corresponded to, respectively for the \emph{instruction g
 After each serie of repetitions, a break of 5 minutes was introduced to enable the participant to recover sufficiently. During the break they were asked to fill out a Rating of Perceived Exertion (RPE) questionnaire \cite{borg1998borg} and indicate how heavy the effort had been during the exercise, ranging from 6 ("no exertion at all") to 20 ("maximal exertion"). 
 In addition, they rated the level of physical enjoyment of the previous run on the 8-item version of the Physical Activity Enjoyment Scale (PACES) \cite{kendzierski1991physical}, a single factor scale to assess the level of enjoyment during a physical activity in adults across exercise modalities.
 In order to test the motivational properties of the feedback, participants also performed a modified version of the Brunel Music Rating Inventory 2 (BMRI-2) test \cite{karageorghis2006redesign}. In this test, they were asked to rate on a 7-point Likert scale: clarity, pleasantness, accuracy, motivational properties and usability of the presented audio feedback. % Furthermore they were asked if they would use such a system to guide them to optimal movement technique
-All questionnaires were implemented as Google forms on a dedicated computer within the same room.
+All questionnaires were implemented as Google forms on a dedicated Apple computer within the same room, only used by the participant.
 
  
 
 \subsection*{Stimuli}
 
-In all conditions the same music piece was played. The piece was specifically composed for this experiment by the authors. The music was composed respecting the following requirements:
+\paragraph{Music}
+In all conditions the same music track was played. The piece was specifically composed for this experiment by the authors. The music was composed respecting the following requirements:
 \begin{itemize}
 \item to be unknown, to avoid personal affection
 \item to be instrumental (no lyrics), to avoid focus on content
 \item to have a clear beat, in order to stimulate repetitive movements.
 \end{itemize}
 
-For the sonification feedback 
-the spine spine curvature
-ithe music was distorted using the degrade object implemented in MAX/MSP, proportionally to the detected movement error.
+\paragraph{Sonification}
+
+The sonification group received  feedback on their movement performance through alterations of the baseline music track
+ 
+More specifically, the implemented feedbacks consisted in:
+\begin{description}
+\item[spine bend] Continuous variations of the sampling rate of the track music. Specifically, the non dimensional spine bend value \emph{sb} was mapped into the following Sigmoid function.
+$$ y = 1 - expr 1/(1+pow(2.7182,-10*(x-0.2)))$$ The resulting value between (comprised between 1 and 0) provided the input of the effective sampling size of the "degrade~" object implemented in Max4Live. The slope and ramp value of the Sigmoid function were determined in preliminary tests to ensure enough responsiveness of the feedback and margin for movement execution without distortion.  
+
+\item[BF distance feedback] Change in panning and number of effective speakers. The \emph{bfd} was mapped through the following Sigmoid function $$1 - expr 1/(1+pow(2.7182,-15*(x-0.6)))$$
+\end{description} 
+The two stereo channels outputs of the Ableton Master track were mapped to different speaker configuration using Dante Controller software, using a Rednet connection
+The right channel was mapped to a speaker configuration surrounding the participant, while the left channel was mapped to only the 3 speakers in front of the participant.
+The output of the Sigmoid function in this case determined the gain of the Ableton right and left channels. This implied that if the  value \emph{bfd} moved towards 0 (i.e. barbell toward the foot) the gain of the left channel (linked to the three speakers in front only) was increased while that of the right channel (linked to the all surrounding speakers) was decreased. This implies volume reduction and directionality change, giving the effect to the participant that if the barbell moved forward only the forward speakers were active.
+
 
 \subsection*{Data acquisition}
 
-The markers positions in the 
-
-The markers positions were continuously transmitted as OSC to an in-house MAX/MSP program running on the same tablet, which implemented the synchronization strategies and provided the audio. Data were collected every 10 milliseconds and stored as .txt. file on the control computer
-
-
-
-
+%The derived quantities: spine bend and B-F distance calculated were calculated by the MAx4Live patch were recorded as .txt file together with 3D markers positions transmitted by the Mocap system. 
+The body markers positions were acquired by Mocap system on the Mocap computer. 
+Recordings were made every 10 milliseconds and stored as .txt file on the control computer containing the following quantities:
+\begin{itemize}
+\item 3D marker positions
+\item \emph{sb} and \emph{bfd}  
+\item distortion level
+\item system panning 
+\end{itemize}
+A separate file was stored for each participant and each point of performance.
+The questionnaire information was directly put in the cloud.
 
 \subsection*{Data analysis}
 
-A preliminary analysis of normality of the data 
+ 
+The serie of repetitions were split into single deadlift movements by analisys of the vertical barbell displacement. 
+
+
+
+The mean  
+
+
+A preliminary analysis of normality of the data using Shapiro-Wilk test showed that the data
 
 t-test 
 
 
 speak of power as the probability of not making a beta, or a "Type II" error, which refers to falsely concluding that there was no difference (e.g., between experimental and control groups) when in fact there was a difference, but the study failed to show it.
+
+
+
+
+
+
+
+
+
+
 
 \section*{Results} \label{sec:results}
 
@@ -475,32 +526,7 @@ speak of power as the probability of not making a beta, or a "Type II" error, wh
 
 \paragraph{Barbell horizontal displacement}
 
-%% OLD TABLE
 
-
-
-
-
-
-%\begin{table}[!ht]
-%%\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
-%\centering
-%\caption{
-%{\bf Table caption Nulla mi mi, venenatis sed ipsum varius, volutpat euismod diam.}}
-%\begin{tabular}{|clclc|clc|c|}
-%\hline
-%\multicolumn{1}{|c}{\bf Feedback type} & \multicolumn{6}{|c|}{\bf Point of Performance}\\ \hline
-%\multicolumn{1}{|c|}{\bf} & \multicolumn{2}{|c|}{\bf Spine bend}& \multicolumn{2}{|c|}{\bf Barbell distance} & \multicolumn{2}{|c|}{\bf Combination}\\ \hline
-%
-%$Instructions $  & cell2  & cell3& row 1 & cell5 & cell6& cell6 \\ \hline
-%$Sonification $  & cell2 & cell3  & row 2 & cell5  & cell6 & cell6 \\ \hline
-%
-%\end{tabular}
-%
-%\label{table1}
-%%\end{adjustwidth}
-%\end{table}
-%
 
 % Table generated by Excel2LaTeX from sheet 'tablePaper'
 \begin{table}[!h]
@@ -526,9 +552,9 @@ speak of power as the probability of not making a beta, or a "Type II" error, wh
 
 
 
-\subsection*{Pairwise differences}
+\subsection*{Regression factors}
 
-
+Music education, experience level, gender effect over spine  minus control and barbell  minus control
 
 A KS-test for normality revealed that g differences for Adaptive sync condition were normally distributed ($p=0.06$) as well as for the  Plus 30\% ($p=0.2$). The conditions Initial sync ($p=0.022$), Minus 30\% ($p=0.016$) and No music ($p=0.001$) were not normally distributed. 
 Paired t-tests were performed on the normally distributed pairs, Wilcoxon tests on the non-normally distributed ones. A summary of the results is shown in Table \ref{tab:parwise} with effect size Cohen $d$ for t-tests and Pearson correlation coefficient $r$ for Wilcoxon tests:
@@ -538,21 +564,13 @@ Paired t-tests were performed on the normally distributed pairs, Wilcoxon tests 
 
 \subsection*{Questionnaires information}
 
-Participants were asked to rate pleasantness and motivational effect of the different synchronisation strategies on a 7-point Likert scale. No overall significant difference was found across conditions using a non parametric Friedman test ($p > 0.05$). 
-
-When comparing independent groups by means of Mann Whitney tests, differences in pleasantness ratings were observed between participants with music education (17) and participants without music education (11) for some of the experimental conditions.
-The results are presented in Table \ref{tab:table1}.
-%Ratings for each condition were compared among independent groups: participants with music education and participants without by means of Mann Whitney tests.
-
-
+Participants were asked to rate pleasantness and motivational effect of the different synchronisation strategies on a 7-point Likert scale. 
 
 No significant differences were found across gender and across training level of participants. 
 
 \section*{Discussion} \label{sec:discussion}
 
 In this case no effect of arousal produced by the acoustic stimulus was noticed compared to the no sonification condition. E certo se era distorsion!!
-
-
 
 
 Portability of the system could be improved by adoption of current systems for back posture detection ViPerform tm Assessment Modules
